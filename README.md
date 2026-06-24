@@ -70,33 +70,31 @@ Then open `http://localhost:5173`
 semantic-job-match/
 ├── backend/
 │   ├── api/           # FastAPI app, routes
-│   ├── core/          # Config, logging
+│   ├── core/          # Config
 │   ├── models/        # Pydantic schemas
 │   ├── services/      # Embedding, search, gap analysis
 │   └── tests/
 ├── frontend/
 │   └── src/
-│       ├── components/ # UploadZone, ResultCard, ScoreBar
-│       ├── pages/
-│       └── hooks/
+│       ├── components/ # UploadZone, JobCard, ScoreBar, SkillTags, ScanningState
+│       ├── utils/       # api.js — backend client
+│       └── styles/      # Design tokens
 ├── data/
-│   ├── raw/           # Source job posting CSVs
-│   ├── processed/     # Cleaned job data JSON
-│   └── index/         # FAISS .index + metadata.json
+│   ├── raw/           # Source job posting CSVs (gitignored)
+│   ├── processed/     # Cleaned job data JSON (gitignored)
+│   └── index/         # FAISS .index + metadata.json (gitignored)
 ├── scripts/
-│   ├── build_index.py # Pre-builds FAISS index
-│   └── scrape_jobs.py # (optional) job data collection
-├── notebooks/
-│   └── 01_exploration.ipynb
+│   ├── build_index.py          # Builds FAISS index from CSV
+│   └── generate_sample_data.py # Synthetic job data for testing
 └── .github/workflows/
     └── test.yml
 ```
 
 ## Milestones
 
-- [x] **M1** — Folder structure, environment, sample data pipeline
-- [ ] **M2** — Embedding service + FAISS index build script
-- [ ] **M3** — FastAPI backend (3 endpoints)
-- [ ] **M4** — React frontend with PDF upload + results UI
-- [ ] **M5** — Gap analysis (skill diff per job)
-- [ ] **M6** — Docker + HuggingFace Spaces deployment
+- [x] **M1** — Folder structure, environment, embedding service, FAISS index build script
+- [x] **M2** — FastAPI backend with 3 working endpoints (`/health`, `/match`, `/embed`)
+- [x] **M3** — React frontend: drag-drop PDF upload, ranked results, score bars, skill gap tags
+- [ ] **M4** — Swap synthetic data for real job postings (Kaggle LinkedIn dataset)
+- [ ] **M5** — Docker Compose for one-command local run
+- [ ] **M6** — Deploy backend + frontend to a public URL
