@@ -60,7 +60,7 @@ async def match_resume(
         job_matches.append(JobMatch(
             job_id=job["job_id"],
             title=job["title"],
-            company=job["company"],
+            company=job.get("company") or job.get("company_name", ""),
             location=job.get("location"),
             description_snippet=job.get("description", "")[:300],
             score=job["score"],

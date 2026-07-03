@@ -34,8 +34,8 @@ from services.embedding_service import embedder
 from core.config import settings
 
 
-REQUIRED_COLUMNS = {"title", "company", "description"}
-TEXT_CONCAT_TEMPLATE = "{title} at {company}. {description}"
+REQUIRED_COLUMNS = {"title", "company_name", "description"}
+TEXT_CONCAT_TEMPLATE = "{title} at {company_name}. {description}"
 
 
 def load_jobs(csv_path: Path, limit: int) -> pd.DataFrame:
@@ -53,7 +53,7 @@ def load_jobs(csv_path: Path, limit: int) -> pd.DataFrame:
         )
 
     # Drop rows with missing critical fields
-    df = df.dropna(subset=["title", "company", "description"])
+    df = df.dropna(subset=["title", "company_name", "description"])
     df = df.reset_index(drop=True)
     print(f"After cleaning: {len(df)} valid job postings")
     return df
@@ -72,7 +72,7 @@ def prepare_texts(df: pd.DataFrame) -> list[str]:
         desc = str(row["description"])[:2000]
         text = TEXT_CONCAT_TEMPLATE.format(
             title=row["title"],
-            company=row["company"],
+            company_name=row["company_name"],
             description=desc,
         )
         texts.append(text)
@@ -93,7 +93,7 @@ def build_faiss_index(embeddings: np.ndarray) -> faiss.Index:
 
 def save_metadata(df: pd.DataFrame, path: Path) -> None:
     """Save job metadata as JSON list (parallel to FAISS index order)."""
-    meta_cols = ["title", "company", "description"]
+    meta_cols = ["title", "company_name", "description"]
     optional_cols = ["location", "salary", "job_type", "url"]
     cols_to_save = meta_cols + [c for c in optional_cols if c in df.columns]
 
