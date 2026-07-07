@@ -86,7 +86,7 @@ def generate_description(title: str, company: str, stack: list[str]) -> str:
 
 
 def main():
-    output_path = Path("data/raw/jobs.csv")
+    output_path = Path("data/raw/sample_jobs.csv")
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     rows = []
