@@ -14,8 +14,8 @@ dist/
 # Data & model artifacts (large files)
 data/raw/
 data/processed/
-data/index/*.index
-data/index/*.json
+# data/index/*.index
+# data/index/*.json
 *.pt
 *.bin
 
