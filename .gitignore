@@ -40,5 +40,5 @@ Thumbs.db
 .pytest_cache/
 .coverage
 htmlcov/
-data/raw/
-data/index/
+# data/raw/
+# data/index/
